@@ -19,65 +19,58 @@ def main():
     # A plural future tense phrase
     print(make_sentence(2, "future"))
 
-
 def make_sentence(quantity, tense):
-  """Build and return a sentence with three words:
-  a determiner, a noun, and a verb. The grammatical
-  quantity of the determiner and noun will match the
-  number in the quantity parameter. The grammatical
-  quantity and tense of the verb will match the number
-  and tense in the quantity and tense parameters.
-  """
+    """Build and return a sentence with four components:
+    a determiner, a noun, a prepositional phrase, and a verb.
+    """
+    determiner = get_determiner(quantity)
+    noun = get_noun(quantity)
+    phrase = get_prepositional_phrase(quantity)
+    verb = get_verb(quantity, tense)
 
-  determiner = get_determiner(quantity)
-  noun = get_noun(quantity)
-  verb = get_verb(quantity, tense)
-
-  sentence = (f"{determiner} {noun} {verb}.")
-  return sentence.capitalize()
+    sentence = f"{determiner} {noun} {phrase} {verb}."
+    return sentence.capitalize()
 
 def get_determiner(quantity):
-  """
-  Return: a randomly chosen determiner.
-  """
-  if quantity == 1:
-      words = ["a", "one", "the"]
-  else:
-      words = ["some", "many", "the"]
-  # Randomly choose and return a determiner.
-  word = random.choice(words)
-  return word
-
+    if quantity == 1:
+        words = ["a", "one", "the"]
+    else:
+        words = ["some", "many", "the"]
+    return random.choice(words)
 
 def get_noun(quantity):
-  """
-  Return: a randomly chosen noun.
-    """
-  if quantity == 1:
-      words = ["bird", "boy", "car", "cat", "child",
-      "dog", "girl", "man", "rabbit", "woman"]
-  else:
-      words = ["birds", "boys", "cars", "cats", "children",
-      "dogs", "girls", "men", "rabbits", "women"]
-  # Randomly choose and return a determiner.
-  word = random.choice(words)
-  return word
+    if quantity == 1:
+        words = ["bird", "boy", "car", "cat", "child",
+                 "dog", "girl", "man", "rabbit", "woman"]
+    else:
+        words = ["birds", "boys", "cars", "cats", "children",
+                 "dogs", "girls", "men", "rabbits", "women"]
+    return random.choice(words)
 
 def get_verb(quantity, tense):
-  """
-  Return: a randomly chosen verb.
-  """
-  if tense == "past":
-        words = ["drank", "ate", "grew", "laughed", "thought","ran", "slept", "talked", "walked", "wrote"]
-  elif tense == "present" and quantity == 1:
+    if tense == "past":
+        words = ["drank", "ate", "grew", "laughed", "thought", "ran", "slept", "talked", "walked", "wrote"]
+    elif tense == "present" and quantity == 1:
         words = ["drinks", "eats", "grows", "laughs", "thinks", "runs", "sleeps", "talks", "walks", "writes"]
-  elif tense == "present" and quantity != 1:
+    elif tense == "present":
         words = ["drink", "eat", "grow", "laugh", "think", "run", "sleep", "talk", "walk", "write"]
-  elif tense == "future":
-        words = [ "will drink", "will eat", "will grow", "will laugh", "will think", "will run", "will sleep", "will talk", "will walk", "will write"] 
+    elif tense == "future":
+        words = ["will drink", "will eat", "will grow", "will laugh", "will think", "will run", "will sleep", "will talk", "will walk", "will write"]
+    return random.choice(words)
 
-     # Randomly choose and return a determiner.
-  word = random.choice(words)
-  return word
+def get_preposition():
+    words = ["about", "above", "across", "after", "along", "around", "at", "before", "behind", "below", "beyond", "by", "despite", "except", "for", "from", "in", "into", "near", "of", "off", "on", "onto", "out", "over", "past", "to", "under", "with", "without"]
+    return random.choice(words)
+
+def get_prepositional_phrase(quantity):
+    """Build and return a prepositional phrase composed
+    of a preposition, a determiner, and a noun.
+    """
+    preposition = get_preposition()
+    determiner = get_determiner(quantity)
+    noun = get_noun(quantity)
+
+    phrase = f"{preposition} {determiner} {noun}"
+    return phrase
 
 main()
